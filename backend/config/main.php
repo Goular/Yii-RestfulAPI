@@ -37,6 +37,25 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
+        'assetManager' => [
+            'bundles' => [
+                'dmstr\web\AdminLteAsset' => [
+                    'skin' => 'skin-purple-light', // 选择后台背景颜色的选项
+//                    "skin-blue",
+//                    "skin-black",
+//                    "skin-red",
+//                    "skin-yellow",
+//                    "skin-purple",
+//                    "skin-green",
+//                    "skin-blue-light",
+//                    "skin-black-light",
+//                    "skin-red-light",
+//                    "skin-yellow-light",
+//                    "skin-purple-light",
+//                    "skin-green-light"
+                ],
+            ],
+        ],
         /*
         'urlManager' => [
             'enablePrettyUrl' => true,
