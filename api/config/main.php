@@ -15,6 +15,10 @@ return [
     'components' => [
         'request' => [
             'csrfParam' => '_csrf-api',
+            // 目的是让Request接收到JSON数据
+            'parsers' => [
+                'application/json' => 'yii\web\JsonParser',
+            ]
         ],
         'user' => [
             'identityClass' => 'common\models\User',
