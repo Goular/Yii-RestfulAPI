@@ -6,7 +6,7 @@
  * Time: 17:40
  */
 
-namespace backend\controllers;
+namespace api\controllers;
 
 
 use yii\rest\ActiveController;
