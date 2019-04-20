@@ -24,22 +24,16 @@ class ArticleController extends ActiveController
     public $modelClass = 'common\models\Article';
 
     // 请求参数认证方式
-//    public function behaviors()
-//    {
-//        return ArrayHelper::merge(parent::behaviors(), [
-//            'authenticatior' => [
-//                'class' => QueryParamAuth::className()
-//            ],
-//            'verbs' => [
-//                'class' => VerbFilter::className(),
-//                'actions' => [
-//                    'search' => ['post'],
-//                ],
-//            ],
-//        ]);
-//    }
+    public function behaviors()
+    {
+        return ArrayHelper::merge(parent::behaviors(), [
+            'authenticatior' => [
+                'class' => QueryParamAuth::className()
+            ]
+        ]);
+    }
 
-     // HTTP BASIC认证方式
+    // HTTP BASIC认证方式
 //     public function behaviors()
 //     {
 //          return ArrayHelper::merge(parent::behaviors(), [
@@ -65,6 +59,7 @@ class ArticleController extends ActiveController
 
     public function actionIndex()
     {
+        \Yii::$app->response->format = Response::FORMAT_JSON;
         $modelClass = $this->modelClass;
         return new ActiveDataProvider([
             "query" => $modelClass::find()->asArray(),
