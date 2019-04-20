@@ -34,7 +34,18 @@
                     ['label' => '管理员用户', 'icon' => ' fa-user-secret', 'url' => ['/adminuser/index']],
                     ['label' => '文章管理', 'icon' => ' fa-file-word-o', 'url' => ['/article/index']],
                     ['label' => '登录', 'url' => ['site/login'], 'visible' => Yii::$app->user->isGuest],
-
+                    [
+                        'label' => '权限管理',
+                        'icon' => ' fa-unlock-alt',
+                        'url' => '#',
+                        'items' => [
+                            ['label' => '路由', 'icon' => ' fa-road', 'url' => ['/admin/route'],],
+                            ['label' => '权限', 'icon' => ' fa-certificate', 'url' => ['/admin/permission'],],
+                            ['label' => '角色', 'icon' => ' fa-user', 'url' => ['/admin/role'],],
+                            ['label' => '分配', 'icon' => ' fa-check-circle', 'url' => ['/admin/assignment'],],
+                            ['label' => '菜单', 'icon' => ' fa-list-alt', 'url' => ['/admin/menu'],],
+                        ],
+                    ],
                     [
                         'label' => '系统工具',
                         'icon' => 'share',
