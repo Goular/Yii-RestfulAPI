@@ -55,16 +55,23 @@ return [
 //            'enableStrictParsing' => true,
 //            'showScriptName' => false,
 //            'rules' => [
-//                [
-//                    'class' => 'yii\rest\UrlRule',
+//                ['class' => 'yii\rest\UrlRule',
 //                    'controller' => 'article',
-//                    "ruleConfig" => [
-//                        "class" => "yii\web\UrlRule",
-//                        "defaults" => [
-//                            // 添加额外的显示字段
-//                            "expand" => "createdBy"
+//                    'ruleConfig'=>[
+//                        'class'=>'yii\web\UrlRule',
+//                        'defaults'=>[
+//                            'expand'=>'createdBy',
 //                        ]
-//                    ]
+//                    ],
+//                    'extraPatterns'=>[
+//                        'POST search' => 'search'
+//                    ],
+//                ],
+//
+//                ['class'=>'yii\rest\UrlRule',
+//                    'controller'=>'top10',
+//                    'except'=>['delete','create','update','view'],
+//                    'pluralize'=>false,
 //                ],
 //            ],
 //        ],

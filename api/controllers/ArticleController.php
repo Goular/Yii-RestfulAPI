@@ -9,12 +9,27 @@
 namespace api\controllers;
 
 
+use common\models\Article;
 use yii\data\ActiveDataProvider;
+use yii\filters\VerbFilter;
 use yii\rest\ActiveController;
+use yii\web\Response;
 
 class ArticleController extends ActiveController
 {
     public $modelClass = 'common\models\Article';
+
+    public function behaviors()
+    {
+        return [
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'search' => ['post'],
+                ],
+            ],
+        ];
+    }
 
     public function actions()
     {
@@ -30,5 +45,12 @@ class ArticleController extends ActiveController
             "query" => $modelClass::find()->asArray(),
             "pagination" => ["pageSize" => 5]
         ]);
+    }
+
+    // 增加搜索文章的功能
+    public function actionSearch()
+    {
+        \Yii::$app->response->format = Response::FORMAT_JSON;
+        return Article::find()->where(['like', 'title', \Yii::$app->request->post("keyword")])->all();
     }
 }
