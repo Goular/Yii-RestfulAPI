@@ -11,7 +11,9 @@ namespace api\controllers;
 
 use common\models\Article;
 use yii\data\ActiveDataProvider;
+use yii\filters\auth\QueryParamAuth;
 use yii\filters\VerbFilter;
+use yii\helpers\ArrayHelper;
 use yii\rest\ActiveController;
 use yii\web\Response;
 
@@ -21,14 +23,17 @@ class ArticleController extends ActiveController
 
     public function behaviors()
     {
-        return [
+        return ArrayHelper::merge(parent::behaviors(), [
+            'authenticatior' => [
+                'class' => QueryParamAuth::className()
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'search' => ['post'],
                 ],
             ],
-        ];
+        ]);
     }
 
     public function actions()
