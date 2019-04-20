@@ -55,7 +55,17 @@ return [
 //            'enableStrictParsing' => true,
 //            'showScriptName' => false,
 //            'rules' => [
-//                ['class' => 'yii\rest\UrlRule', 'controller' => 'article'],
+//                [
+//                    'class' => 'yii\rest\UrlRule',
+//                    'controller' => 'article',
+//                    "ruleConfig" => [
+//                        "class" => "yii\web\UrlRule",
+//                        "defaults" => [
+//                            // 添加额外的显示字段
+//                            "expand" => "createdBy"
+//                        ]
+//                    ]
+//                ],
 //            ],
 //        ],
     ],
