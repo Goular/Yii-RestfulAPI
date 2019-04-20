@@ -9,8 +9,10 @@
 namespace api\controllers;
 
 
+use backend\models\Adminuser;
 use common\models\Article;
 use yii\data\ActiveDataProvider;
+use yii\filters\auth\HttpBasicAuth;
 use yii\filters\auth\QueryParamAuth;
 use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
@@ -21,20 +23,38 @@ class ArticleController extends ActiveController
 {
     public $modelClass = 'common\models\Article';
 
-    public function behaviors()
-    {
-        return ArrayHelper::merge(parent::behaviors(), [
-            'authenticatior' => [
-                'class' => QueryParamAuth::className()
-            ],
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'search' => ['post'],
-                ],
-            ],
-        ]);
-    }
+    // 请求参数认证方式
+//    public function behaviors()
+//    {
+//        return ArrayHelper::merge(parent::behaviors(), [
+//            'authenticatior' => [
+//                'class' => QueryParamAuth::className()
+//            ],
+//            'verbs' => [
+//                'class' => VerbFilter::className(),
+//                'actions' => [
+//                    'search' => ['post'],
+//                ],
+//            ],
+//        ]);
+//    }
+
+     // HTTP BASIC认证方式
+//     public function behaviors()
+//     {
+//          return ArrayHelper::merge(parent::behaviors(), [
+//             'authenticatior' => [
+//                 'class' => HttpBasicAuth::className(),
+//                 'auth' => function ($username, $password) {
+//                         $user = Adminuser::find()->where(['username' => $username])->one();
+//                         if ($user->validatePassword($password)) {
+//                             return $user;
+//                         }
+//                         return null;
+//                         }
+//                      ]
+//             ]);
+//     }
 
     public function actions()
     {
