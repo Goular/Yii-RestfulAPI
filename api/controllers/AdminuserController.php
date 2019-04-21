@@ -2,6 +2,7 @@
 
 namespace api\controllers;
 
+use api\models\ApiSignupForm;
 use yii\rest\ActiveController;
 use yii\data\ActiveDataProvider;
 use api\models\ApiLoginForm;
@@ -25,5 +26,18 @@ class AdminuserController extends ActiveController
 
     }
 
+    public function actionSignup()
+    {
+        $model = new ApiSignupForm();
 
+        $model->load(\Yii::$app->getRequest()->getBodyParams(), '');
+
+        if ($model->signup()) {
+            return ['resulte' => '注册成功！'];
+        } else {
+            $model->validate();
+            return $model;
+        }
+
+    }
 }
