@@ -5,6 +5,7 @@ namespace backend\controllers;
 use Yii;
 use common\models\Article;
 use common\models\ArticleSearch;
+use yii\filters\RateLimiter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -26,6 +27,10 @@ class ArticleController extends Controller
                     'delete' => ['POST'],
                 ],
             ],
+            "rateLimiter" => [
+                'class' => RateLimiter::className(),
+                'enableRateLimitHeaders' => true,
+            ]
         ];
     }
 

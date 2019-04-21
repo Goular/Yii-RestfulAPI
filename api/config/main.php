@@ -20,6 +20,19 @@ return [
                 'application/json' => 'yii\web\JsonParser',
             ]
         ],
+        'response' => [
+            'class' => 'yii\web\Response',
+            'on beforeSend' => function ($event) {
+                $response = $event->sender;
+                $response->data = [
+                    'success' => $response->isSuccessful,
+                    'code' => $response->getStatusCode(),
+                    'data' => $response->data,
+                    'message' => $response->statusText
+                ];
+                $response->statusCode = 200;
+            },
+        ],
         'user' => [
             'identityClass' => 'backend\models\Adminuser',
             'enableAutoLogin' => true,

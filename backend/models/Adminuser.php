@@ -248,4 +248,21 @@ class Adminuser extends \yii\db\ActiveRecord implements IdentityInterface
         $this->access_token = Yii::$app->security->generateRandomString();
         return $this->access_token;
     }
+
+    public function getRateLimit($request, $action)
+    {
+        return [3, 1];  //每秒只能请求3次
+    }
+
+    public function loadAllowance($request, $action)
+    {
+        return [$this->allowance, $this->allowance_updated_at];
+    }
+
+    public function saveAllowance($request, $action, $allowance, $timestamp)
+    {
+        $this->allowance = $allowance;
+        $this->allowance_updated_at = $timestamp;
+        $this->save();
+    }
 }
