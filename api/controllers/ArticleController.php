@@ -17,6 +17,7 @@ use yii\filters\auth\QueryParamAuth;
 use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
 use yii\rest\ActiveController;
+use yii\web\ForbiddenHttpException;
 use yii\web\Response;
 
 class ArticleController extends ActiveController
@@ -31,6 +32,27 @@ class ArticleController extends ActiveController
                 'class' => QueryParamAuth::className()
             ]
         ]);
+    }
+
+    // 校验权限
+    public function checkAccess($action, $model = null, $params = [])
+    {
+        //对ActiveControllers类中默认实现了的方法进行权限设置
+        if ($action === 'view') {
+            if (\Yii::$app->user->can('ArticleViewer')) {
+                return true;
+            }
+        }
+
+        if ($action === 'view' || $action === 'update' || $action === 'delete'
+            || $action === 'create' || $action === 'index') {
+            if (\Yii::$app->user->can('ArticleAdmin')) {
+                return true;
+            }
+        }
+
+        throw new ForbiddenHttpException('对不起，你没有进行该操作的权限。');
+
     }
 
     // HTTP BASIC认证方式
@@ -59,6 +81,9 @@ class ArticleController extends ActiveController
 
     public function actionIndex()
     {
+        if (!\Yii::$app->user->can('ArticleAdmin')) {
+            throw new ForbiddenHttpException('对不起，你没有进行该操作的权限。');
+        }
         \Yii::$app->response->format = Response::FORMAT_JSON;
         $modelClass = $this->modelClass;
         return new ActiveDataProvider([
